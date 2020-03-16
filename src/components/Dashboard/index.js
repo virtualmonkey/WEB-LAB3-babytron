@@ -6,16 +6,21 @@ import {connect} from 'react-redux';
 
 import BabyStatus from '../BabyStatus';
 import AddEvent from '../AddEvent';
+import EventsList from '../EventsList';
 import * as selectors from '../../reducers';
 
 
 const Dashboard = ({selectedBaby}) => {
-  let {babyId} = useParams();
   return (
-    <div>
-      <h3>{babyId}</h3>
-      <BabyStatus />
-      <AddEvent selectedBaby={selectedBaby}></AddEvent>
+    <div className="pa2">
+      <div className="flex flex-row justify-center items-start flex-wrap">
+        <div className="flex flex-column justify-center items-start flex-wrap">
+          <BabyStatus />  
+          <EventsList selectedBaby={selectedBaby}/>
+        </div>
+        <AddEvent selectedBaby={selectedBaby} />
+      </div>
+      
     </div>
 
   );

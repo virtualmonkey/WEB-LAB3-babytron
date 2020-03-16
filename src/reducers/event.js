@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import * as types from '../types/event';
+import omit from 'lodash/omit';
 
 /*
 
@@ -30,9 +31,10 @@ const babiesToEvents = (state = {}, action) =>{
             
         }
         case types.EVENT_DELETED: {
+            let variable = state[action.payload.babyId].filter(event => event !== action.payload.id)
             return {
                 ...state,
-                [action.payload.babyId]: state[action.payload.babyId].filter(event => event === action.payload.id)
+                [action.payload.babyId]: variable
             }
         }
         default: return state
@@ -51,10 +53,7 @@ const events = (state = {}, action) => {
             };
         }
         case types.EVENT_DELETED: {
-            const { [action.payload.id]: deleted, ...newState } = state;
-            return {
-                newState
-            }
+            return omit(state,action.payload.id)
         }
         default: {
             return state;
@@ -67,10 +66,16 @@ const event = combineReducers({
 });
 export default event;
 
-export const getEventListByBabyId = (state, babyId) => state.babiesToEvents[babyId];
 export const getEvent = (state, id) => {
     return {
         id: id, 
         event: state.events[id]
     }
 };
+export const getEventListByBabyId = (state, babyId) => {
+    if (state.babiesToEvents[babyId]){
+        return state.babiesToEvents[babyId].map(eventId => getEvent(state,eventId));
+    } else {
+        return []
+    }
+}

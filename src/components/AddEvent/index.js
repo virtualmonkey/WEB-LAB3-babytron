@@ -8,15 +8,16 @@ import * as actions from '../../actions/event';
 const AddEvent = ({handleSubmit, selectedBaby}) =>{
     return (
         <div>
-            <main className="pa4 black-80">
+            <main className="pa2 black-80">
                 <form className="measure center" onSubmit={handleSubmit}>
                     <fieldset id="add_babie" className="ba b--transparent ph0 mh0">
                         <div className="flex items-center justify-center">
                             <legend className="f4 fw6 ph0 mh0">New Event</legend>
                         </div>
                         <div className="mt3">
-                            <div className="flex items-center space-around">
-                                <Field className="db f6 bg-white black ph3 pv2 ma2" component="select" name="eventType">
+                            <label className="db fw6 lh-copy f6 pv2" htmlFor="type">type</label>
+                            <div className="flex items-center justify-start">
+                                <Field className="db f6 bg-white black ph3 pv2 w-100" component="select" name="eventType">
                                     <option value="Nap">Nap</option>
                                     <option value="Feeding Bottle">Feeding bottle</option>
                                     <option value="Diaper Change(1)">Diaper Change(1)</option>
@@ -26,9 +27,9 @@ const AddEvent = ({handleSubmit, selectedBaby}) =>{
                             </div>
                         </div>
                         <div className="mv3">
-                            <label className="db fw6 lh-copy f6" htmlFor="notes">Notes</label>
+                            <label className="db fw6 lh-copy f6 pv2" htmlFor="notes">Notes</label>
                             <Field 
-                            className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+                            className="input-reset ba bg-transparent hover-bg-black hover-white w-100 ph3 pv2" 
                             type="text" 
                             name="notes" 
                             component="input"/>
