@@ -1,27 +1,28 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
   useParams,
-  useRouteMatch
 } from "react-router-dom";
+import {connect} from 'react-redux';
 
 import BabyStatus from '../BabyStatus';
 import AddEvent from '../AddEvent';
+import * as selectors from '../../reducers';
 
 
-const Dashboard = () => {
+const Dashboard = ({selectedBaby}) => {
   let {babyId} = useParams();
   return (
     <div>
       <h3>{babyId}</h3>
       <BabyStatus />
-      <AddEvent></AddEvent>
+      <AddEvent selectedBaby={selectedBaby}></AddEvent>
     </div>
 
   );
 };
 
-export default Dashboard;
+export default connect(
+  state => ({
+    selectedBaby : selectors.getSelectedBaby(state)
+  })
+)(Dashboard);

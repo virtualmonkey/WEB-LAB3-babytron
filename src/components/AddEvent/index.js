@@ -1,16 +1,11 @@
 import React from 'react';
 import {Field, reduxForm } from 'redux-form';
 import { v4 as uuidv4 } from 'uuid';
-import {connect} from 'react-redux';
-
-
-import { Link } from "react-router-dom";
 
 import * as actions from '../../actions/event';
-import * as babyToEventsactions from '../../actions/babyToEvents';
-import * as selectors from '../../reducers';
 
-const AddEvent = ({handleSubmit, doBabiesExist, selectedBaby}) =>{
+
+const AddEvent = ({handleSubmit, selectedBaby}) =>{
     return (
         <div>
             <main className="pa4 black-80">
@@ -20,16 +15,16 @@ const AddEvent = ({handleSubmit, doBabiesExist, selectedBaby}) =>{
                             <legend className="f4 fw6 ph0 mh0">New Event</legend>
                         </div>
                         <div className="mt3">
-													<div className="flex items-center space-around">
-														<Field className="db f6 bg-white black ph3 pv2 ma2" component="select" name="eventType">
-															<option value="Nap">Nap</option>
-															<option value="Feeding Bottle">Feeding bottle</option>
-															<option value="Diaper Change(1)">Diaper Change(1)</option>
-															<option value="Diaper Change(2)">Diaper Change(2)</option>
-															<option value="Breast">Breast</option>
-														</Field>            
-													</div>
-												</div>
+                            <div className="flex items-center space-around">
+                                <Field className="db f6 bg-white black ph3 pv2 ma2" component="select" name="eventType">
+                                    <option value="Nap">Nap</option>
+                                    <option value="Feeding Bottle">Feeding bottle</option>
+                                    <option value="Diaper Change(1)">Diaper Change(1)</option>
+                                    <option value="Diaper Change(2)">Diaper Change(2)</option>
+                                    <option value="Breast">Breast</option>
+                                </Field>            
+                            </div>
+                        </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="notes">Notes</label>
                             <Field 
@@ -51,18 +46,14 @@ const AddEvent = ({handleSubmit, doBabiesExist, selectedBaby}) =>{
     )
 };
 export default reduxForm({
-		form: 'addEvent', // a unique name for this form
+		form: 'addEventForm', // a unique name for this form
 		
-    onSubmit(values,dispatch){
-				let moment = require('moment');
-				const uuid = uuidv4();
-				dispatch(actions.addEvent(uuid,values.eventType, moment(),values.notes))
+    onSubmit(values,dispatch, {selectedBaby}){
+        let moment = require('moment');
+        const uuid = uuidv4();
+        dispatch(actions.addEvent(uuid,values.eventType, moment(),values.notes,selectedBaby))
     }
-})(connect(
-    state => ({
-			selectedBaby : selectors.getSelectedBaby(state)
-		})
-)(AddEvent));
+})(AddEvent);
 
 
 

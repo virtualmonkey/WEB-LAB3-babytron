@@ -1,6 +1,8 @@
-
+import { combineReducers } from 'redux'
 import * as types from '../types/event';
+
 /*
+
 events: {
     byId: {
         1abc: {
@@ -11,7 +13,32 @@ events: {
     }
 }
 */
-const event = (state = {}, action) => {
+const babiesToEvents = (state = {}, action) =>{
+    switch(action.type){
+        case types.EVENT_ADDED: {
+            if (state[action.payload.babyId] !== undefined){
+                return {
+                    ...state, 
+                    [action.payload.babyId]: [...state[action.payload.babyId], action.payload.id]
+                }
+            } else {
+                return {
+                    ...state,
+                    [action.payload.babyId]: [action.payload.id]
+                }
+            }
+            
+        }
+        case types.EVENT_DELETED: {
+            return {
+                ...state,
+                [action.payload.babyId]: state[action.payload.babyId].filter(event => event === action.payload.id)
+            }
+        }
+        default: return state
+    }
+}
+const events = (state = {}, action) => {
     switch (action.type) {
         case types.EVENT_ADDED: {
             return {
@@ -24,7 +51,7 @@ const event = (state = {}, action) => {
             };
         }
         case types.EVENT_DELETED: {
-            const { [action.payload]: deleted, ...newState } = state;
+            const { [action.payload.id]: deleted, ...newState } = state;
             return {
                 newState
             }
@@ -34,10 +61,16 @@ const event = (state = {}, action) => {
         }
     }
 };
+const event = combineReducers({
+    events,
+    babiesToEvents
+});
 export default event;
+
+export const getEventListByBabyId = (state, babyId) => state.babiesToEvents[babyId];
 export const getEvent = (state, id) => {
     return {
         id: id, 
-        event: state.event[id]
+        event: state.events[id]
     }
 };
