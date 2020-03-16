@@ -30,8 +30,8 @@ const BabyStatus = ({babies, selectBaby}) => {
           babies : reverse(selectors.getBabies(state))
       }), 
       dispatch => ({
-        selectBaby(e) {
-            let select = e.target;
+        selectBaby(event) {
+            let select = event.target;
             let babyId = select.options[select.selectedIndex].getAttribute("value");
             dispatch(actions.selectBaby(babyId))
         }

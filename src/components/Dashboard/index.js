@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import BabyStatus from '../BabyStatus';
+import AddEvent from '../AddEvent';
 
 
 const Dashboard = () => {
@@ -17,6 +18,7 @@ const Dashboard = () => {
     <div>
       <h3>{babyId}</h3>
       <BabyStatus />
+      <AddEvent></AddEvent>
     </div>
 
   );
