@@ -20,7 +20,6 @@ const Dashboard = ({selectedBaby}) => {
         </div>
         <AddEvent selectedBaby={selectedBaby} />
       </div>
-      
     </div>
 
   );

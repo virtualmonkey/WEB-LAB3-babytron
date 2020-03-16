@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  useParams,
-} from "react-router-dom";
 import {connect} from 'react-redux';
+import reverse from 'lodash/reverse';
 
 import Event from '../Event';
 import * as selectors from '../../reducers';
@@ -28,7 +26,9 @@ const EventsList = ({selectedBaby, eventsList}) => {
 };
 
 export default connect(
-  (state, {selectedBaby}) => ({
-    eventsList: selectors.getEventListByBabyId(state,selectedBaby)
-  })
+  (state, {selectedBaby}) => {
+    return {
+			eventsList: reverse([... selectors.getEventListByBabyId(state,selectedBaby)])
+    }
+}
 )(EventsList);

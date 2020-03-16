@@ -30,9 +30,7 @@ const BabyStatus = ({babies, selectBaby}) => {
             </div>
           </div>
         </fieldset>
-      </div>
-        
-      
+      </div>     
     );
   };
   

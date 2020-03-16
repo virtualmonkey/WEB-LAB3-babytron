@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 import * as types from '../types/event';
 import omit from 'lodash/omit';
-
 /*
 
 events: {
