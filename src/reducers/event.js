@@ -35,4 +35,9 @@ const event = (state = {}, action) => {
     }
 };
 export default event;
-export const getEvent = (state, id) => {id, state.event[id]};
+export const getEvent = (state, id) => {
+    return {
+        id: id, 
+        event: state.event[id]
+    }
+};

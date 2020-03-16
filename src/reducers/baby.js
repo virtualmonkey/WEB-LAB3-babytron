@@ -41,14 +41,39 @@ const byId = (state = {}, action) => {
   }
 };
 
+const selectedBaby = (state = '', action) => {
+  switch(action.type){
+    case types.BABY_SELECTED: {
+      return action.payload
+    }
+    case types.BABY_ADDED: {
+      return action.payload.id
+    }
+    default: {
+      return state
+    }
+  }
+}
+
 const baby = combineReducers({
     byId,
     order,
+    selectedBaby
   });
 export default baby;
 
 
-export const getBaby = (state, id) => {id, state.byId[id]};
+export const getBaby = (state, id) => {
+  return {
+    id: id, 
+    ...state.byId[id]
+  }
+};
 export const getBabies = state => state.order.map(
   id => getBaby(state, id),
 ).filter(baby => baby != null);
+export const getBabyByOrder = (state, index) => { 
+  return state.order[index] 
+}
+export const getBabiesCount = state => state.order.length;
+export const getSelectedBaby = state => state.selectedBaby;
